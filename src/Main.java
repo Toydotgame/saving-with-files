@@ -1,24 +1,23 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 	static File saveFile = new File("save");
-	static boolean fileAlreadyExists = saveFile.exists();
 	
 	public static void main(String[] args) {
 		createFile();
 		writeToFile();
 		readFile();
 		
-		System.out.println(lines.get(1));
+		System.out.println(DataStorage.lines.get(1));
 	}
 	
 	public static boolean createFile() {
-		if(fileAlreadyExists == true) {
+		DataStorage.fileAlreadyExists = saveFile.exists();
+
+		if(DataStorage.fileAlreadyExists == true) {
 			System.out.println("The file \"" + saveFile + "\" already exists!");
 			return true;
 		} else {
@@ -34,15 +33,12 @@ public class Main {
 		}
 	}
 	
-	// Always comes before the read.
-	static List<String> lines = new ArrayList<String>();
-
 	public static void readFile() {
 		try {
 			Scanner reader = new Scanner(saveFile);
 			while(reader.hasNextLine()) {
 				String lineData = reader.nextLine();
-				lines.add(lineData);
+				DataStorage.lines.add(lineData);
 				System.out.println(lineData);
 			}
 			reader.close(); // nice
@@ -52,18 +48,18 @@ public class Main {
 		}
 	}
 	
-	// These should go before the `write();` block.
-	if(fileAlreadyExists == true)
-	static int x = 1;
-	static int y = 2;
-	static int z = 3;
+	public void doStuffWithValuesFromTheOldFile() {
+		if(DataStorage.fileAlreadyExists == true) {
+			
+		}
+	}
 	
 	public static void writeToFile() {
 		try { // try/catch can actually leave now, it's okay. The joke's over.
 			FileWriter writer = new FileWriter(saveFile);
-			writer.write("x: " + String.valueOf(x) + "\n");
-			writer.write("y: " + String.valueOf(y) + "\n");
-			writer.write("z: " + String.valueOf(z) + "\n\n");
+			writer.write("x: " + String.valueOf(DataStorage.x) + "\n");
+			writer.write("y: " + String.valueOf(DataStorage.y) + "\n");
+			writer.write("z: " + String.valueOf(DataStorage.z) + "\n\n");
 			writer.close(); // Good practices, good sir.
 			System.out.println("Successfully wrote to file!");
 		} catch(IOException e) { // Leave.
