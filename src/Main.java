@@ -1,6 +1,11 @@
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 public class Main {
@@ -50,7 +55,21 @@ public class Main {
 	
 	public void doStuffWithValuesFromTheOldFile() {
 		if(DataStorage.fileAlreadyExists == true) {
-			
+			String xStr;
+			try {
+				FileReader fileReader = new FileReader(saveFile);
+				BufferedReader bufferReader = new BufferedReader(fileReader);
+				int ln;
+				
+				for(ln = 1; ln < 10 /* Needs to be clear of max possible size of file in lines. */; ln++) {
+					if(ln == 1) {
+						xStr = bufferReader.readLine();
+						DataStorage.x =Integer.parseInt(xStr);
+					}
+				}
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
