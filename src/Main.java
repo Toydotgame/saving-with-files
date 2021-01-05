@@ -1,15 +1,15 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class Main {
 	static File saveFile = new File("save");
 	
-	
-
 	public static void main(String[] args) {
 		createFile();
 		writeToFile();
+		readFile();
 	}
 	
 	public static boolean createFile() {
@@ -28,6 +28,18 @@ public class Main {
 				e.printStackTrace();
 			} // Burn. Slowly.
 			return false;
+		}
+	}
+	
+	public static void readFile() {
+		try {
+			Scanner reader = new Scanner(saveFile);
+			while(reader.hasNextLine()) {
+				String lineData = reader.nextLine();
+				System.out.println(lineData);
+			}
+		} catch(IOException e) {
+			
 		}
 	}
 	
